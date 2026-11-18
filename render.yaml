@@ -1,0 +1,37 @@
+
+services:
+  - type: web
+    name: shopkart-api
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm run start
+    healthCheckPath: /_health
+    autoDeploy: true
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: NODE_VERSION, value: "22" }
+      - { key: HOST, value: 0.0.0.0 }
+      - { key: IS_PROXIED, value: "true" }
+      - { key: PUBLIC_URL, sync: false }
+      - { key: CORS_ORIGINS, sync: false }
+      - { key: APP_KEYS, generateValue: true }
+      - { key: API_TOKEN_SALT, generateValue: true }
+      - { key: ADMIN_JWT_SECRET, generateValue: true }
+      - { key: TRANSFER_TOKEN_SALT, generateValue: true }
+      - { key: JWT_SECRET, generateValue: true }
+      - { key: ENCRYPTION_KEY, generateValue: true }
+      - { key: DATABASE_CLIENT, value: postgres }
+      - { key: DATABASE_URL, sync: false }
+      - { key: DATABASE_SSL, value: "true" }
+      - { key: DATABASE_SSL_REJECT_UNAUTHORIZED, value: "true" }
+      - { key: DATABASE_POOL_MIN, value: "0" }
+      - { key: DATABASE_POOL_MAX, value: "5" }
+      - { key: CLOUDINARY_NAME, sync: false }
+      - { key: CLOUDINARY_KEY, sync: false }
+      - { key: CLOUDINARY_SECRET, sync: false }
+      - { key: CLOUDINARY_FOLDER, value: shopkart }
+      - { key: FLAG_NPS, value: "false" }
+      - { key: FLAG_PROMOTE_EE, value: "false" }
+      - { key: STRAPI_TELEMETRY_DISABLED, value: "true" }
